@@ -1,0 +1,81 @@
+<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+
+<div id="exercise">
+    <!-- 1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attach respective class to the div with id "effect" below) -->
+    <div>
+        <button @click="startEffect">Start Effect</button>
+        <div id="effect" :class="theEffect"></div>
+    </div>
+    <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
+    <div :class="[{red: attachEffect}, color]">I got no class :(</div>
+    <!-- 3) Let the user enter a class (create some example classes) and attach it -->
+    <div :class="customColor">
+        <input type="text" v-model="customColor">
+        <div></div>
+    </div>
+    <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
+    <div>
+        <input type="text" v-model="color">
+        <input type="text" v-model="attachEffect">
+        <div :class="color"></div>
+    </div>
+    <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
+    <div>
+        <input type="text" v-model="customColor">
+        <div :style="stylish"></div>
+    </div>
+    <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
+    <div>
+        <button v-on:click="startProgress">Start Progress</button>
+        <div :style="progress"></div>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: '#exercise',
+        data: {
+            attachEffect: false,
+            color: "blue",
+            customColor: "red",
+            width: 100
+        },
+        methods: {
+            startEffect() {
+                var vm = this;
+                setInterval(function () {
+                    vm.attachEffect = !vm.attachEffect
+                }, 500);
+            },
+            startProgress() {
+                var vm = this;
+                setInterval(function () {
+                    vm.width++;
+                    console.log(vm.width);
+                }, 500);
+            }
+        },
+        computed: {
+            theEffect: function () {
+                return {
+                    highlight: this.attachEffect,
+                    shrink: !this.attachEffect
+                }
+            },
+            stylish: function () {
+                return {
+                    backgroundColor: this.customColor,
+                    color: "white",
+                    height: 100 + 'px'
+                }
+            },
+            progress: function () {
+                return {
+                    height: 100 + 'px',
+                    width: this.width + 'px',
+                    backgroundColor: this.color
+                }
+            }
+        }
+    });
+
+</script>
