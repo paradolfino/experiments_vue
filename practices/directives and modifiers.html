@@ -1,0 +1,39 @@
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<div id="app">
+
+    <button v-on:click.prevent="count(2, $event)">
+        Click Me
+    </button>
+    <p>
+        {{ counter }}
+    </p>
+    <p v-on:mousemove="updateCoords">
+        Coords: {{ x }}/{{ y }} -
+        <span v-on:mousemove.stop=""> DEAD SPOT </span>
+    </p>
+    <input type="text" v-on:keydown.enter="alertMe">
+</div>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            counter: 0,
+            x: 0,
+            y: 0
+        },
+        methods: {
+            count(amt, event) {
+                this.counter += amt;
+            },
+            updateCoords(e) {
+                this.x = e.clientX;
+                this.y = e.clientY;
+            },
+            alertMe() {
+                this.counter += 50;
+            }
+        }
+    });
+</script>
