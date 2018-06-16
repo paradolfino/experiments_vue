@@ -1,0 +1,31 @@
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<div id="app">
+    <h1 v-once>
+        {{ title }}
+    </h1>
+    <p>
+        {{ sayHello() }}
+        <a v-bind:href="link">Google</a>
+    </p>
+    <p v-html="finishedLink">
+
+    </p>
+</div>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            title: "Hello World",
+            link: "http://google.com",
+            finishedLink: '<a href="google.com">Google</a>'
+        },
+        methods: {
+            sayHello() {
+                this.title = "Hello";
+                return this.title;
+            }
+        }
+    });
+</script>
